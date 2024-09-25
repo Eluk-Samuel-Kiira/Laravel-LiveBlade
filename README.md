@@ -11,7 +11,7 @@ Features:
 
 Setup Instructions:
 
-    Clone the repository:
+    https://github.com/Eluk-Samuel-Kiira/Laravel-LiveBlade
 
 
 Set up the environment by configuring the database to SQLite in your .env file:
@@ -20,6 +20,6 @@ makefile
 
     DB_CONNECTION=sqlite
 
-    Run migrations and you're good to go!
+    php artisan migrate
 
 With LiveBlade.js, you can streamline real-time interactions in your Laravel applications, making them more dynamic and user-friendly with minimal effort.
