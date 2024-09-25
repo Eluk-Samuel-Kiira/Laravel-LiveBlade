@@ -10,7 +10,7 @@ Features:
 
 Setup Instructions:
 
-    git clone https://github.com/your-repo/liveblade
+    git clone https://github.com/Eluk-Samuel-Kiira/Laravel-LiveBlade
 
 
 
