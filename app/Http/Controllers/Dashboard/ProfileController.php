@@ -25,6 +25,8 @@ class ProfileController extends Controller
         switch ($viewBlade) {
             case 'updateProfileForm':
                 return view('profile.partials.update-profile-information-form', ['user' => $request->user()]);
+            case 'updatePasswordForm':
+                return view('profile.partials.update-password-form', ['user' => $request->user()]);
             default:
                 return view('profile.edit', ['user' => $request->user()]);
         }
@@ -43,6 +45,8 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+
+        // All responses for reloading the component
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,

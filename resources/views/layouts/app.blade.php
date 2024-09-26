@@ -20,7 +20,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="{{ asset('admin-panel/assets/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('admin-panel/assets/css/icons.css') }}" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>	
+    
+    <link href="{{ asset('admin-panel/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
     <title>@yield('title')</title>
 
     <!-- Theme Style CSS -->
@@ -68,6 +70,25 @@
 	<script>
 		new PerfectScrollbar(".app-container")
 	</script>
+    <script>
+		$(document).ready(function() {
+			$('#example').DataTable();
+		  } );
+	</script>
+	<script>
+		$(document).ready(function() {
+			var table = $('#example2').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+		 
+			table.buttons().container()
+				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+		} );
+	</script>
+    <!-- DataTable -->
+	<script src="{{ asset('admin-panel/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset('admin-panel/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
 </body>
 
 </html>

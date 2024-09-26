@@ -66,11 +66,25 @@ const LiveBladeResponse = {
         })
         .catch(error => {
             console.error('Error fetching new content:', error);
-            this.displayErrorMessage('An error occurred while updating the profile.');
+            this.displayErrorMessage('Component Not Found.');
         });
     },
     
     displayErrorMessage: function(message) {
+        const swalMessage = 'Operation Failed!'
+        Swal.fire({
+            toast: true,
+            position: 'top-end',  // Places the alert at the top-right corner
+            icon: 'error',        // Error icon
+            title: `<span style="color: red;">${swalMessage}</span>`,       // The message to display
+            showConfirmButton: false,
+            timer: 5000,          // Auto close after 5 seconds
+            timerProgressBar: true, // Show a progress bar
+            customClass: {
+                popup: 'swal2-show', // Adds a fade-in effect for the popup
+            }
+        });
+
         const statusDiv = document.getElementById('status');
         statusDiv.innerHTML = `<div class="alert alert-danger">${message}</div>`;
         
@@ -82,8 +96,25 @@ const LiveBladeResponse = {
     
 
     displaySuccessMessage: function(message) {
+        const swalMessage = 'Operation Successful!'
+        Swal.fire({
+            toast: true,
+            position: 'top-end',  // Places the alert at the top-right corner
+            icon: 'success',      // Success icon
+            title: `<span style="color: green;">${swalMessage}</span>`,       // The message to display
+            showConfirmButton: false,
+            timer: 5000,          // Auto close after 5 seconds
+            timerProgressBar: true, // Show a progress bar
+            customClass: {
+                popup: 'swal2-show', // Adds a fade-in effect for the popup
+            }
+        });
+
+        // Incase swal fire is not called
         const statusDiv = document.getElementById('status');
-        statusDiv.innerHTML = `<div class="alert alert-success">${message}</div>`;
+        if (statusDiv) {
+            statusDiv.innerHTML = `<div class="alert alert-success">${message}</div>`;
+        }
         
         // Optionally, remove the message after a few seconds
         setTimeout(() => {
@@ -113,6 +144,7 @@ const LiveBladeResponse = {
     
                     // Append the error span after the input element
                     inputElement.parentNode.insertBefore(errorSpan, inputElement.nextSibling);
+                    this.displayValidationMessage();
                 }
             }
         }
@@ -130,18 +162,23 @@ const LiveBladeResponse = {
             width: '90%',
         });
     },
+
+    displayValidationMessage: function() {
+        const swalMessage = 'Validation Errors!'
+        Swal.fire({
+            toast: true,
+            position: 'top-end',  // Places the alert at the top-right corner
+            icon: 'error',        // Error icon
+            title: `<span style="color: red;">${swalMessage}</span>`,       // The message to display
+            showConfirmButton: false,
+            timer: 5000,          // Auto close after 5 seconds
+            timerProgressBar: true, // Show a progress bar
+            customClass: {
+                popup: 'swal2-show', // Adds a fade-in effect for the popup
+            }
+        });
+    },
     
-    
-    // displayPopup: function(message) {
-    //     Swal.fire({
-    //         icon: type === 'error' ? 'error' : 'info',
-    //         title: type === 'error' ? 'Error' : 'Info',
-    //         html: `<div style="max-height: 300px; overflow-y: auto;">${message}</div>`, // Make it scrollable
-    //         confirmButtonText: 'OK',
-    //         showCloseButton: false, // Prevent closing the modal with the close button
-    //         allowOutsideClick: false // Prevent closing the modal by clicking outside
-    //     });
-    // }
     
 };
 export default LiveBladeResponse;

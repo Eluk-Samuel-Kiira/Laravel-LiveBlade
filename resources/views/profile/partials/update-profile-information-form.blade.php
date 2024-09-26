@@ -3,7 +3,6 @@
         @csrf
         @method('patch')
         <div id="status"></div>
-        <span>{{ $user->name }}</span>
         <div class="row mb-3">
             <div class="col-sm-3">
                 <h6 class="mb-0">Full Name</h6>
@@ -51,29 +50,6 @@
             </div>
         </div>
     </form>
-    @include('layouts.liveblade-imports')
-    <script>
-        // Laravel routes and form handling to be pass to js
-        window.routes = {
-            'profile.update': "{{ route('profile.update') }}",
-        };
-
-        const handleFormSubmit = (formId, routeName, method) => {
-            document.getElementById(formId).addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = Object.fromEntries(new FormData(this));
-                formData._token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                
-                // You can as well perform validations here
-                
-                LiveBlade.load(routeName, method, formData, `#${formId}`);
-            });
-        };
-
-        // Example usage for multiple forms, pass form id with route name
-        handleFormSubmit('updateProfileForm', 'profile.update', 'PATCH');
-        // handleFormSubmit('registerForm', 'register', 'POST');
-    </script>
 
     {{-- <header>
         <h2 class="text-lg font-medium text-gray-900">

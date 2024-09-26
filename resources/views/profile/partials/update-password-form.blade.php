@@ -1,4 +1,45 @@
 <section>
+    <form id="updatePasswordForm">
+        @csrf
+        @method('PUT')
+        <div id="status"></div>
+        <div class="row mb-3">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Password</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                <input type="password" id="update_password_current_password" name="current_password" class="form-control" required />
+                <div id="current_password"></div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-3">
+                <h6 class="mb-0">New Password</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                <input type="password" id="update_password_password" name="password" class="form-control" required />
+                <div id="password"></div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Confirm Password</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                <input type="password" id="update_password_password_confirmation" name="password_confirmation" class="form-control" required />
+                <div id="password_confirmation"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9 text-secondary">
+                <input type="submit" class="btn btn-primary px-4" value="Save Changes" />
+            </div>
+        </div>
+    </form>
+    
+
+    {{--
     <header>
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Update Password') }}
@@ -45,4 +86,6 @@
             @endif
         </div>
     </form>
+
+    --}}
 </section>

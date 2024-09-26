@@ -64,7 +64,14 @@
                         <div class="col-lg-8">
                             <div class="card">
                                 <div class="card-body">
+                                    <h5 class="d-flex align-items-center mb-3">Update Profile Information</h5>
                                     @include('profile.partials.update-profile-information-form')
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="d-flex align-items-center mb-3">Update Password</h5>
+                                    @include('profile.partials.update-password-form')
                                 </div>
                             </div>
                             
@@ -103,6 +110,32 @@
             </div>
         </div>
     </div>
+    
+    @include('layouts.liveblade-imports')
+    <script>
+        // Laravel routes and form handling to be pass to js
+        window.routes = {
+            'profile.update': "{{ route('profile.update') }}",
+            'password.update': "{{ route('password.update') }}",
+        };
+
+        const handleFormSubmit = (formId, routeName, method) => {
+            document.getElementById(formId).addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = Object.fromEntries(new FormData(this));
+                formData._token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                
+                // You can as well perform validations here
+                
+                LiveBlade.load(routeName, method, formData, `#${formId}`);
+            });
+        };
+
+        // Example usage for multiple forms, pass form id with route name
+        handleFormSubmit('updateProfileForm', 'profile.update', 'PATCH');
+        handleFormSubmit('updatePasswordForm', 'password.update', 'PUT');
+    </script>
+
     {{--
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
