@@ -3,7 +3,7 @@ import LiveBladeResponse from '../responses/liveblade-responses.js';
 
 
 const formLogic = {
-    load(routeName, method = 'GET', data = {}, targetSelector) {
+    load(routeName, method = 'GET', data = {}, targetSelector, componentToReload='') {
 
         const url = window.routes[routeName];
         // console.log(method);
@@ -42,7 +42,7 @@ const formLogic = {
             })
             .then(data => {
                 // Delegate response handling to LiveBladeResponse
-                LiveBladeResponse.processResponse(data, document.querySelector(targetSelector));
+                LiveBladeResponse.processResponse(data, document.querySelector(targetSelector), componentToReload);
             })
             .catch(error => {
                 // Handle validation errors (422 response)

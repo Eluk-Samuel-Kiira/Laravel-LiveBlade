@@ -20,7 +20,7 @@ class Crud extends Model
         'name',
         'office',
         'position',
-        'office',
-        'position',
+        'salary',
+        'age',
     ];
 }

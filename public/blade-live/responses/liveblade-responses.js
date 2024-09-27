@@ -1,10 +1,10 @@
 
 const LiveBladeResponse = {
-    processResponse: function(data, targetSelector) {
+    processResponse: function(data, targetSelector, componentToReload) {
         if (data.success) {
             if(data.reload && data.redirect){
                 // reload the page component
-                this.loadComponent(targetSelector, data.redirect, data.component);
+                this.loadComponent(targetSelector, data.redirect, data.component, componentToReload);
             } else if (data.redirect) {
                 // Load the new page content in the background
                 this.loadPage(data.redirect);
@@ -29,15 +29,19 @@ const LiveBladeResponse = {
         window.location.href = url;
     },
 
-    loadComponent: function(component, routeName, viewBlade) {
+    loadComponent: function(component, routeName, viewBlade, componentToReload) {
+        // Hide any modal with the class 'modal'
+        $('.modal').modal('hide');
+        // console.log(componentToReload);
         // Clear previous status messages
         const statusDiv = component.querySelector('#status');
+        // include "<div id="status"></div>" in your blade files to display the error message
         if (statusDiv) {
             statusDiv.innerHTML = ''; // Clear previous status messages
         }
     
         // Define the success message
-        const successMessage = 'updated successfully!';
+        const successMessage = 'Operation Successfully!';
     
         // Construct the URL by appending the viewBlade query parameter
         const url = `${routeName}?viewBlade=${viewBlade}`;
@@ -58,8 +62,40 @@ const LiveBladeResponse = {
         })
         .then(html => {
             // Replace the inner HTML of the component with the new form content
-            component.innerHTML = html;
-            console.log('Form component reloaded.');
+            if (componentToReload && componentToReload.trim() !== "") {
+                // Find the component by its ID and replace its inner HTML
+                console.log(componentToReload)
+                const pageComponent = document.getElementById(componentToReload);
+                
+                if (pageComponent) {
+                    // Replace the entire component with the new HTML
+                    pageComponent.innerHTML = html; // Assuming `html` contains the entire component HTML
+
+                    // get the id attribute of the datatable dynamically
+                    const idAttribute = pageComponent.offsetParent.getAttribute('id');
+                    console.log(idAttribute);
+                
+                    // check if a table is a datatale and destroy it
+                    if ( $.fn.dataTable.isDataTable(`#${idAttribute}`) ) {
+                        $(`#${idAttribute}`).DataTable({
+                            destroy: true,
+                            paging: true,
+                        });
+                    }
+
+                    // $(`#${idAttribute}`).DataTable({
+                    //     responsive: true,
+                    // });
+                    console.log('DataTable initialized with ID:', idAttribute);
+                } else {
+                    console.error('Component to reload not found.');
+                }
+                              
+            } else {
+                // back to the same id
+                component.innerHTML = html;
+                console.log('component reloaded.');
+            }
     
             // Display the success message
             this.displaySuccessMessage(successMessage);

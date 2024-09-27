@@ -59,7 +59,7 @@
             'cruds.store': "{{ route('cruds.store') }}",
         };
 
-        const handleFormSubmit = (formId, routeName, method) => {
+        const handleFormSubmit = (formId, routeName, method, componentToReload) => {
             document.getElementById(formId).addEventListener('submit', function(e) {
                 e.preventDefault();
                 const formData = Object.fromEntries(new FormData(this));
@@ -67,11 +67,11 @@
                 
                 // You can as well perform validations here
                 
-                LiveBlade.load(routeName, method, formData, `#${formId}`);
+                LiveBlade.load(routeName, method, formData, `#${formId}`, componentToReload);
             });
         };
 
         // Example usage for multiple forms, pass form id with route name
-        handleFormSubmit('createCrudForm', 'cruds.store', 'POST');
+        handleFormSubmit('createCrudForm', 'cruds.store', 'POST', 'example2');
     </script>
 </section>

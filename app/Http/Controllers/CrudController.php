@@ -16,14 +16,15 @@ class CrudController extends Controller
      */
     public function index(Request $request)
     {
+        $offices = Crud::all();
         $viewBlade = $request->query('viewBlade');
         // \Log::info('viewBlade received: ' . $viewBlade);
 
         switch ($viewBlade) {
             case 'officeDataTable':
-                return view('crud.index');
+                return view('crud.datatable', ['offices' => $offices]);
             default:
-                return view('crud.index');
+                return view('crud.index', ['offices' => $offices]);
         }
     }
 
